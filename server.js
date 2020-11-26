@@ -24,4 +24,6 @@ app.get("/tables", function(req,res) {
 })
 
 
+
+//set the app to listen on PORT and console log the PORT number
 app.listen(PORT, () => {console.log(`You are listening on ${PORT}`)});
