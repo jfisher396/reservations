@@ -41,7 +41,7 @@ app.get("/tables", function(req,res) {
     res.sendFile(path.join(__dirname, "tables.html"));
 
 })
-
+//api routes
 app.get("/api/tables", function(req,res) {
     return res.json(tables)
 })
@@ -49,8 +49,7 @@ app.get("/api/tables", function(req,res) {
 app.get("/api/waitlist", function(req,res) {
     return res.json(waitlist)
 })
-
-
+//post route
 app.post("/api/tables", function(req,res ) {
     const newRes = req.body;
     if(tables.length < 5){
