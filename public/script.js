@@ -1,1 +1,7 @@
-console.log("script.js is working")
+
+
+$(document).ready( function() {
+
+   
+
+});
