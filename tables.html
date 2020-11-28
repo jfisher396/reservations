@@ -22,19 +22,42 @@
         </div>
         <a href="/api/tables">Tables API</a>
         <a href="/api/waitlist">Waitlist API</a>
-        <div class="tables">
-
+        <div class="card">
+            <div id="tables" class="card=body">
+                <h3 class="card-title">Tables</h3>
+            </div>
         </div>
-        <div class="waiting">
-
+        <div class="card">
+            <div id="waiting" class="card=body">
+                <h3 class="card-title">Waitlist</h3>
+            </div>
         </div>
     </div>
     <script>
         $.get("/api/tables").then(data => {
-            console.log("table data:", data)
+
+            const tableDiv = $("#tables")
+            
+            data.forEach((table) => {
+                let tableCard = $("<div>");
+                tableCard.addClass("card");
+                tableCard.html(`<h4>Name: ${table.name}</h4><p>Party Size: ${table.partySize}</p><p>Phone: ${table.phone}</p>`);
+                tableDiv.append(tableCard)
+            })
+
+            // console.log("table data:", data)
         })
         $.get("/api/waitlist").then(data => {
             console.log("waitlist data:", data)
+
+            const waitDiv = $("#waiting")
+            
+            data.forEach((table) => {
+                let waitCard = $("<div>");
+                waitCard.addClass("card");
+                waitCard.html(`<h4>Name: ${table.name}</h4><p>Party Size: ${table.partySize}</p><p>Phone: ${table.phone}</p>`);
+                waitDiv.append(waitCard)
+            })
         })
 
 
