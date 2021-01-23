@@ -7,6 +7,10 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+//public routes
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 //array variables
 const tables = [
     {
@@ -25,8 +29,6 @@ const waitlist = [
     }
 ]
 
-//public routes
-app.use(express.static(path.join(__dirname, 'public')));
 
 //page routes
 app.get("/", function(req,res) {
@@ -41,6 +43,7 @@ app.get("/tables", function(req,res) {
     res.sendFile(path.join(__dirname, "tables.html"));
 
 })
+
 //api routes
 app.get("/api/tables", function(req,res) {
     return res.json(tables)
@@ -49,6 +52,7 @@ app.get("/api/tables", function(req,res) {
 app.get("/api/waitlist", function(req,res) {
     return res.json(waitlist)
 })
+
 //post route
 app.post("/api/tables", function(req,res ) {
     const newRes = req.body;

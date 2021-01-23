@@ -1,7 +1,2 @@
+console.log('public/script.js is working');
 
-
-$(document).ready( function() {
-
-   
-
-});

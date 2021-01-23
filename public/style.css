@@ -1,0 +1,22 @@
+body {
+    background-color: #fff;
+}
+
+.tables-div {
+    display: flex;
+    
+}
+
+.table-card {
+    background-color: yellow;
+    display: flex;
+    
+    width: 25%;
+}
+
+.waitlist-card {
+    background-color: green;
+    color: #fff;
+    display: flex;
+    width: 25%;
+}
