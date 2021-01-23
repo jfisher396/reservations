@@ -12,22 +12,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //array variables
-const tables = [
-    {
-        id: "001",
-        name: "James Fisher",
-        partySize: 4,
-        phone: "555-1234"
-    }
-]
-const waitlist = [
-    {
-        id: "006",
-        name: "Doug Jones",
-        partySize: 3,
-        phone: "555-2233"
-    }
-]
+const tables = [];
+
+const waitlist = [];
 
 
 //page routes

@@ -31,10 +31,15 @@ $(document).ready(function () {
 
   // creates a new reservation based on user input and either adds it to the table list or waitlist depending on how many tables are left
   $("#add-res").on("click", function (event) {
+
+    event.preventDefault();
+    const randomId = () => Math.random().toString(36).substr(2,9);
+
     const newReservation = {
       name: $("#res-name").val().trim(),
       partySize: $("#party-size").val().trim(),
       phone: $("#phone").val().trim(),
+      id: randomId()
     };
 
     $.post("api/tables", newReservation, function (data) {
