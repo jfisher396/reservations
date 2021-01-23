@@ -20,6 +20,10 @@ $(document).ready(function() {
             } else {
                 alert(`${data.name} has been put onto the waitlist.`)
             }
+
+            $('#res-name').val("");
+            $('#party-size').val("1");
+            $('#phone').val("");
         })
 
     })
