@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jfisher396/reservations#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "validator": "^13.5.2"
   }
 }

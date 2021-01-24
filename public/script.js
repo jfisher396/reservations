@@ -1,4 +1,6 @@
 console.log("public/script.js is working");
+
+
 $(document).ready(function () {
   //retrieves table data from the API and creates a card for each party
   $.get("/api/tables").then((data) => {
@@ -32,8 +34,10 @@ $(document).ready(function () {
   // creates a new reservation based on user input and either adds it to the table list or waitlist depending on how many tables are left
   $("#add-res").on("click", function (event) {
 
-    event.preventDefault();
+    // event.preventDefault();
     const randomId = () => Math.random().toString(36).substr(2,9);
+
+    
 
     const newReservation = {
       name: $("#res-name").val().trim(),
@@ -42,7 +46,7 @@ $(document).ready(function () {
       id: randomId()
     };
 
-    $.post("api/tables", newReservation, function (data) {
+    $.post("api/tables", newReservation).then(function (data) {
       if (data.hasTable) {
         alert(
           `A table for ${data.name} has been reserved for ${data.partySize}.`
@@ -54,6 +58,8 @@ $(document).ready(function () {
       $("#res-name").val("");
       $("#party-size").val("1");
       $("#phone").val("");
+
+      window.location.href = '/tables'
     });
   });
 });
