@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Lou",
+		"partySize": "6",
+		"phone": "304723423",
+		"id": "nn74g4fld",
+		"hasTable": true
+	},
+	{
+		"name": "Ann",
+		"partySize": "2",
+		"phone": "124325143",
+		"id": "2bs1ontna",
+		"hasTable": true
+	},
+	{
+		"name": "Nancy",
+		"partySize": "4",
+		"phone": "13241452345",
+		"id": "sqp62flsz",
+		"hasTable": true
+	},
+	{
+		"name": "John",
+		"partySize": "3",
+		"phone": "23452345",
+		"id": "wxmivp6xo",
+		"hasTable": true
+	}
+]

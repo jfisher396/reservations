@@ -1,5 +1,3 @@
-console.log("public/script.js is working");
-
 
 $(document).ready(function () {
   //retrieves table data from the API and creates a card for each party
