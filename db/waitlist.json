@@ -1,9 +1,16 @@
 [
-  {
-    "name": "Quincy",
-    "partySize": "3",
-    "phone": "97595432345",
-    "id": "7slbjj8dr",
-    "hasTable": false
-  }
+	{
+		"name": "Quincy",
+		"partySize": "3",
+		"phone": "97595432345",
+		"id": "7slbjj8dr",
+		"hasTable": false
+	},
+	{
+		"name": "Larry",
+		"partySize": "1",
+		"phone": "23452345",
+		"id": "ve3zhmcp1",
+		"hasTable": false
+	}
 ]
