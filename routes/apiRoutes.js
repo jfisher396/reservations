@@ -1,14 +1,12 @@
 const fs = require("fs");
 const util = require("util");
-
-const writeFileAsync = util.promisify(fs.writeFile);
-
-//TODO: pull in json file(s) to get table and waitlist data
-//TODO:
-
 //array variables
 const tables = require("../db/tables.json");
 const waitlist = require("../db/waitlist.json");
+
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
+
 
 module.exports = function (app) {
   app.get("/api/tables", function (req, res) {
