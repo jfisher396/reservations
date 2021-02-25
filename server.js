@@ -10,8 +10,10 @@ app.use(express.json());
 //public routes
 app.use(express.static(path.join(__dirname, 'public')));
 
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+const apiRoutes = require("./routes/apiRoutes");
+app.use(apiRoutes);
+const htmlRoutes = require("./routes/htmlRoutes");
+app.use(htmlRoutes);
 
 //set the app to listen on PORT and console log the PORT number
 app.listen(PORT, () => {console.log(`You are listening on ${PORT}`)});

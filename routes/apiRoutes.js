@@ -1,76 +1,88 @@
 const fs = require("fs");
-const util = require("util");
-//array variables
-const tables = require("../db/tables.json");
-const waitlist = require("../db/waitlist.json");
+const express = require("express");
+const router = express.Router();
 
-const readFileAsync = util.promisify(fs.readFile);
-const writeFileAsync = util.promisify(fs.writeFile);
+const DB = require("../db/DB");
 
 
-module.exports = function (app) {
-  app.get("/api/tables", function (req, res) {
-    return res.json(tables);
-  });
 
-  app.get("/api/waitlist", function (req, res) {
-    return res.json(waitlist);
-  });
+router.get("/api/tables", async function (req, res) {
+  const tables = await DB.readTables();
+  return res.json(tables);
+});
 
-  // route to create a new reservation
-  app.post("/api/tables", function (req, res) {
-    // console.log("req.body", req.body)
+router.get("/api/waitlist", async function (req, res) {
+  const waitlist = await DB.readWaitlist();
+  return res.json(waitlist);
+});
 
-    const newRes = req.body;
+// route to create a new reservation
+router.post("/api/tables", function (req, res) {
+  // console.log("req.body", req.body)
 
-    if (tables.length < 5) {
-      tables.push(newRes);
-      newRes.hasTable = true;
+  const newRes = req.body;
 
-      writeFileAsync(__dirname + "/../db/tables.json", JSON.stringify(tables, null, "\t")).then(() => {
-          console.log("new party added to tables");
-      }).catch(function(err){
-        throw err
+  if (tables.length < 5) {
+    tables.push(newRes);
+    newRes.hasTable = true;
+
+    writeFileAsync(
+      __dirname + "/../db/tables.json",
+      JSON.stringify(tables, null, "\t")
+    )
+      .then(() => {
+        console.log("new party added to tables");
+      })
+      .catch(function (err) {
+        throw err;
       });
+  } else {
+    waitlist.push(newRes);
+    newRes.hasTable = false;
 
-    } else {
-      waitlist.push(newRes);
-      newRes.hasTable = false;
-
-      writeFileAsync(__dirname + "/../db/waitlist.json", JSON.stringify(waitlist, null, "\t")).then(() => {
-          console.log("party added to waitlist");
-      }).catch(function(err){
-        throw err
+    writeFileAsync(
+      __dirname + "/../db/waitlist.json",
+      JSON.stringify(waitlist, null, "\t")
+    )
+      .then(() => {
+        console.log("party added to waitlist");
+      })
+      .catch(function (err) {
+        throw err;
       });
+  }
+
+  res.json(newRes);
+});
+
+// app.put("/api/waitlist/:id", function(req,res) {
+//   console.log(req.body.id)
+//   res.send(`Got a PUT request at ${req.body.id}`)
+// })
+
+// route to remove a table from the tables list
+router.delete("/api/tables/:id", function (req, res) {
+  const tableToDelete = req.params.id;
+  const updatedTables = [];
+
+  for (let i = 0; i < tables.length; i++) {
+    if (tableToDelete !== tables[i].id) {
+      updatedTables.push(tables[i]);
     }
+  }
 
-    res.json(newRes);
-  });
-
-  // app.put("/api/waitlist/:id", function(req,res) {
-  //   console.log(req.body.id)
-  //   res.send(`Got a PUT request at ${req.body.id}`)
-  // })
-  // route to remove a table from the tables list
-  app.delete("/api/tables/:id", function(req,res) {
-    
-    const tableToDelete = req.params.id;
-    const updatedTables = [];
-
-    for (let i = 0; i < tables.length; i++) {
-        if (tableToDelete !== tables[i].id) {
-            updatedTables.push(tables[i])
-        }
-    }
-
-    fs.writeFile(__dirname + "/../db/tables.json", JSON.stringify(updatedTables, null, "\t"), function (err, data) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("table deleted");
+  fs.writeFile(
+    __dirname + "/../db/tables.json",
+    JSON.stringify(updatedTables, null, "\t"),
+    function (err, data) {
+      if (err) {
+        return console.log(err);
       }
-    );
+      console.log("table deleted");
+    }
+  );
 
-      return res.send(updatedTables)
-  })
-};
+  return res.send(updatedTables);
+});
+
+module.exports = router;
