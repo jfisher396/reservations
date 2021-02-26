@@ -4,7 +4,6 @@ const router = express.Router();
 
 const DB = require("../db/DB");
 
-
 // Route to get table data from database
 router.get("/api/tables", async function (req, res) {
   const tables = await DB.readTables();
@@ -21,8 +20,6 @@ router.post("/api/tables", async function (req, res) {
   
   const newRes = req.body;
   const tables = await DB.readTables();
-  
-  console.log(tables.length)
 
   if (tables.length < 5) {
     
@@ -44,8 +41,10 @@ router.post("/api/tables", async function (req, res) {
 // })
 
 // route to remove a table from the tables list
-router.delete("/api/tables/:id", function (req, res) {
+router.delete("/api/tables/:id", async function (req, res) {
   const tableToDelete = req.params.id;
+  const tables = await DB.readTables();
+  console.log(tableToDelete)
   const updatedTables = [];
 
   for (let i = 0; i < tables.length; i++) {
@@ -53,19 +52,12 @@ router.delete("/api/tables/:id", function (req, res) {
       updatedTables.push(tables[i]);
     }
   }
+  await DB.deleteTable(updatedTables)
 
-  fs.writeFile(
-    __dirname + "/../db/tables.json",
-    JSON.stringify(updatedTables, null, "\t"),
-    function (err, data) {
-      if (err) {
-        return console.log(err);
-      }
-      console.log("table deleted");
-    }
-  );
 
   return res.send(updatedTables);
 });
+
+
 
 module.exports = router;
