@@ -20,8 +20,18 @@ class DB {
     }
   }
 
-  writeTables(){
+  async writeTables(data){
+      
+    try {
+        await writeFileAsync(tables, JSON.stringify(data, null, "\t")).then(() => {
+          console.log("new party added to tables");
+        })
+      .catch(function (err) {
+        throw err;
+      });
+    } catch (error) {
 
+    }
   }
 
   async readWaitlist(){
@@ -33,7 +43,14 @@ class DB {
     }
   }
 
-  writeWaitlist(){
+  async writeWaitlist(data){
+    try {
+        await writeFileAsync(waitlist, JSON.stringify(data, null, "\t")).then(() => {
+          console.log("new party added to the waitlist");
+        })
+    } catch (error) {
+
+    }
     
   }
 }

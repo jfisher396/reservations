@@ -5,51 +5,34 @@ const router = express.Router();
 const DB = require("../db/DB");
 
 
-
+// Route to get table data from database
 router.get("/api/tables", async function (req, res) {
   const tables = await DB.readTables();
   return res.json(tables);
 });
-
+// Route to get waitlist data from database
 router.get("/api/waitlist", async function (req, res) {
   const waitlist = await DB.readWaitlist();
   return res.json(waitlist);
 });
 
 // route to create a new reservation
-router.post("/api/tables", function (req, res) {
-  // console.log("req.body", req.body)
-
+router.post("/api/tables", async function (req, res) {
+  
   const newRes = req.body;
+  const tables = await DB.readTables();
+  
+  console.log(tables.length)
 
   if (tables.length < 5) {
-    tables.push(newRes);
+    
     newRes.hasTable = true;
-
-    writeFileAsync(
-      __dirname + "/../db/tables.json",
-      JSON.stringify(tables, null, "\t")
-    )
-      .then(() => {
-        console.log("new party added to tables");
-      })
-      .catch(function (err) {
-        throw err;
-      });
+    await DB.writeTables([...tables, newRes])
+    
   } else {
-    waitlist.push(newRes);
+    const waitlist = await DB.readWaitlist();
     newRes.hasTable = false;
-
-    writeFileAsync(
-      __dirname + "/../db/waitlist.json",
-      JSON.stringify(waitlist, null, "\t")
-    )
-      .then(() => {
-        console.log("party added to waitlist");
-      })
-      .catch(function (err) {
-        throw err;
-      });
+    await DB.writeWaitlist([...waitlist, newRes])
   }
 
   res.json(newRes);
