@@ -1,7 +1,7 @@
 const util = require("util");
 const fs = require("fs");
 
-//array variables
+// variables connected to json files
 const tables = "./db/tables.json";
 const waitlist = "./db/waitlist.json";
 

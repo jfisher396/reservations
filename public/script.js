@@ -72,12 +72,22 @@ $(document).ready(function () {
     });
   });
 
-  $tableDiv.on("click", ".table-remove-btn", function (event) {
-    console.log("remove button clicked");
-    event.stopPropagation();
+  const handleNoteDelete = function(event) {
 
-    $.post("api/tables/:id", "2bs1ontna").then(function(data) {
-      console.log(data)
-    })
-  });
+    event.stopPropagation();
+    console.log("remove button clicked");
+    const tableInfo = $(this).parent().data()
+    // (".table-card").data();
+    console.log(tableInfo)
+  }
+   
+    
+    
+
+  //   $.post("api/tables/:id", "2bs1ontna").then(function(data) {
+  //     console.log(data)
+  //   })
+  // });
+
+  $tableDiv.on("click", ".table-remove-btn", handleNoteDelete)
 });

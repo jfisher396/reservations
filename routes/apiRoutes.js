@@ -1,4 +1,3 @@
-const fs = require("fs");
 const express = require("express");
 const router = express.Router();
 
@@ -47,6 +46,7 @@ router.delete("/api/tables/:id", async function (req, res) {
   console.log(tableToDelete)
   const updatedTables = [];
 
+  // loops through tables data for any matches then puts all non-matches into a new array that gets converted to json
   for (let i = 0; i < tables.length; i++) {
     if (tableToDelete !== tables[i].id) {
       updatedTables.push(tables[i]);
